@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+
+STYLE_PATH="$HOME/.config/binarydots/styles"
+THEME_DIR="$HOME/.config/binarydots/themes/"
+
+THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
+
+USAGE="\nUsage: $0 [OPTION] [ARGUMENT]
+
+Options:
+  -l, --list             List available themes
+  -c, --change THEME     Change to specified THEME
+  -p, --prompt           Change theme with interactive prompt
+  -h, --help             Show this help message
+"
+change_theme () {
+
+    # Files
+    ln -sf "$THEME_PATH/theme.scss" ~/.config/ewwii/theme.scss
+    ln -sf "$THEME_PATH/theme.css" ~/.config/waybar/theme.css
+    ln -sf "$THEME_PATH/theme.css" ~/.config/wlogout/theme.css
+    ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi
+    ln -sf "$THEME_PATH/makoConfig" ~/.config/mako/config
+    ln -sf "$THEME_PATH/hypr.conf" ~/.config/niri/theme.conf
+    ln -sf "$THEME_PATH/wiremix.toml" ~/.config/wiremix/wiremix.toml
+    ln -sf "$THEME_PATH/foot.ini" ~/.config/foot/foot.ini
+    ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
+    ln -sf "$THEME_PATH/mpv/script-opts/uosc.conf" ~/.config/mpv/script-opts
+
+    source "$THEME_PATH/theme.sh" # Export theme variables
+
+    # Waybar Styles
+    ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}Config" "$HOME/.config/waybar/config"
+    ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}.css" "$HOME/.config/waybar/style.css"
+
+    ewwii kill
+
+       # Widget Styles
+    if [[ "$SCHEME" == "gnome" ]]; then
+        ln -sf "$HOME/.config/binarydots/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
+    elif [[ "$SCHEME" == "windoes" ]]; then
+        ln -sf "$HOME/.config/binarydots/styles/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
+    else
+        ln -sf "$HOME/.config/binarydots/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
+    fi
+
+    bash ~/.config/niri/scripts/widgets.sh r >/dev/null 2>&1 & disown
+
+    bash ~/.config/scripts/wallpaper -s "$WALLPAPER"
+
+    sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$SCHEME\"/" ~/.zshrc
+
+    sed -i "s/vim\.cmd(\"colorscheme .*\")/vim.cmd(\"colorscheme $SCHEME\")/" ~/.config/nvim/init.lua
+
+    sed -i "s|\(color_scheme_path=.*/\).*|\1$SCHEME.conf|" ~/.config/qt6ct/qt6ct.conf
+
+    sed -i "s/theme: \".*\",/theme: \"$SCHEME\",/" ~/.config/rmpc/config.ron || echo
+
+    pgrep "mako" > /dev/null && makoctl reload
+
+    pgrep "waybar" > /dev/null && pkill waybar >/dev/null 2>&1
+    pgrep "Niri" > /dev/null && waybar >/dev/null 2>&1 & disown
+
+    pgrep "Niri" > /dev/null && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
+    echo -e "Theme changed to $chosen"
+}
+
+case $1 in
+
+    --list|-l)
+        echo -e "Available themes:\n$THEMES"
+        ;;
+
+    --change|-c)
+        chosen=$2
+
+        if [[ -z "$chosen" ]]; then
+            echo "No theme selected."
+            exit 1
+        fi
+
+        THEME_PATH="$THEME_DIR/$chosen"
+        if [[ ! -d "$THEME_PATH" ]]; then
+            echo "Error: No such theme '$chosen'"
+            echo -e "Available themes:\n$THEMES"
+            exit 1
+        fi
+
+        change_theme
+        ;;
+
+    --prompt|-p)
+        chosen=$(gum choose --header 'Select a Theme' $THEMES)
+
+        if [[ -z "$chosen" ]]; then
+            echo "No theme selected."
+            exit 1
+        fi
+
+        THEME_PATH="$THEME_DIR/$chosen"
+        if [[ ! -d "$THEME_PATH" ]]; then
+            echo "Error: No such theme '$chosen'"
+            echo -e "Available themes:\n$THEMES"
+            exit 1
+        fi
+        change_theme
+        ;;
+
+    --help|-h)
+        echo -e "$USAGE"
+        ;;
+
+    *)
+        ;;
+esac

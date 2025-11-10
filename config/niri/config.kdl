@@ -1,0 +1,22 @@
+include "environment.kdl"
+include "animations.kdl"
+include "bindings.kdl"
+include "colors.kdl"
+include "input.kdl"
+include "launch-on-startup.kdl"
+include "layout.kdl"
+include "monitors.kdl"
+include "window-rules.kdl"
+
+
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+cursor {
+    hide-when-typing
+    hide-after-inactive-ms 10000
+}

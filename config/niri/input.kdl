@@ -1,0 +1,18 @@
+input {
+    focus-follows-mouse
+
+    keyboard {
+        xkb {
+            layout "us"
+        }
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+    }
+
+    mouse {
+        natural-scroll
+    }
+}

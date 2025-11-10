@@ -1,0 +1,31 @@
+// Theme
+
+$border-main: #181825;
+$border-alt: $border-main;
+
+$bg-main: #1E1E2E;
+$bg-alt: #313244;
+$bg-hover: #45475A;
+$bg-hover-alt: #585B70;
+$bg-tooltip: #1E1E2E;
+$bg-second: #313244;
+$bg-third: #89B4FA;
+$sway-bg: #1E1E2E;
+
+$fg-main: #B4BEFE;
+$fg-unactive: #585B70;
+$content-act: #B4BEFE;
+
+$ply-main: #25253B;
+$ply-hover: #313244;
+$ply-act: #585B70;
+$msc-act: #45475A;
+
+$wlogout-hover: rgba(37, 37, 68, 0.45);
+$wlogout-bg: rgba(26, 27, 41, 0.6);
+$wlogout-button: rgba(26, 27, 41, 0.78);
+
+$border-rad:  10px; // Main border radius
+$border-rad2: 20px; // Second
+$border-radb: 10px; // Button
+$border-rads: 5px; // Scale

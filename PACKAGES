@@ -1,0 +1,11 @@
+breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
+ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascasia-mono-nerd noto-fonts-cjk
+plasma-polkit-agent
+yazi wiremix fzf swaylock
+power-profiles-daemon udiskie network-manager-applet brightnessctl
+cliphist stow git fish unzip fastfetch pamixer mako foot awww-git
+mpv mpd mpdris2-rs rmpc
+base-devel xdg-desktop-portal-gtk xdg-desktop-portal-gnome gnome-keyring
+python-flask python-requests
+pcmanfm-qt waybar ewwii-bin
+rofi rofimoji btop starship

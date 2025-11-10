@@ -1,0 +1,61 @@
+General Management:
+- MOD + V             Toggle floating mode
+- MOD + Q             Close (kill) the active window
+- MOD + TAB           Toggle Overview
+- MOD + SHIFT + F     Toggle fullscreen
+
+Moving Focus:
+- MOD + ←           Move focus left
+- MOD + →           Move focus right
+- MOD + ↑           Move focus up
+- MOD + ↓           Move focus down
+
+- MOD + HOME        Move focus to first in column
+- MOD + END         Move focus to last in column
+
+- MOD + Scroll ↑           Move focus up
+- MOD + Scroll ↓           Move focus down
+
+
+Workspace Switching:
+- MOD + 1..0        Switch to workspace 1–10
+
+Move Active Window to Workspaces:
+- MOD + SHIFT + 1..0      Move active window to workspace 1–10
+
+Volume and Media Control:
+- XF86AudioRaiseVolume      Increase volume (+10)
+- XF86AudioLowerVolume      Decrease volume (-10)
+- XF86AudioMicMute          Toggle microphone mute
+- XF86AudioMute             Toggle audio mute
+- XF86AudioPlay             Play/Pause media
+- XF86AudioStop             Stop media
+- XF86AudioPause            Play/Pause media
+- XF86AudioNext             Next track
+- XF86AudioPrev             Previous track
+- XF86MonBrightnessUp       Increase screen brightness (+10%)
+- XF86MonBrightnessDown     Decrease screen brightness (-10%)
+- XF86KbdBrightnessUp       Increase keyboard backlight
+- XF86KbdBrightnessDown     Decrease keyboard backlight
+- XF86KbdLightOnOff         Toggle keyboard backlight
+
+Applications:
+- SUPER + I           Reload Waybar, Ewwii
+- SUPER + C           Launch editor ($editor)
+- MOD + T             Launch terminal ($terminal)
+- SUPER + E           Launch file manager ($fileManager)
+- File Explorer       Launch file manager ($fileManager)
+- SUPER + B           Launch browser ($browser)
+- SUPER + P           Launch music player ($musicPlayer)
+
+Rofi Menus:
+- SUPER + TAB            Open window switcher (Rofi)
+- SUPER + ALT + SPACE    Open menu (Rofi)
+- SUPER + SUPER_L        Open $menu
+
+Utilities:
+- SUPER + ALT + L              Launch logout menu
+- CTRL + PRINT                 Screenshot full screen
+- ALT + PRINT                  Screenshot window
+- SUPER + SPACE                Open system menu (Rofi)
+- Escape                       Close action center, widgets, and Rofi

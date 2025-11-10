@@ -1,0 +1,1 @@
+/home/buko/.config/binarydots/ewwii/default.rhai

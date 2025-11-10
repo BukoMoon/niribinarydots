@@ -1,0 +1,461 @@
+#!/usr/bin/env bash
+
+cd ~
+
+# Usage Information
+usage() {
+    echo -e "\n Usage:
+      --drun     : Launches the application launcher (drun).\n
+      --run      : Launches the command runner (run). \n
+      --menu     : Displays a custom menu with multiple options. \n
+      --window   : Displays a open windows.\n 
+      --sys_menu : Displays system menu. \n
+      --screenshot_menu : Displays system menu. \n"
+    exit 1
+}
+
+# Function: DRUN Launcher
+drun_launcher() {
+    rofi \
+        -show drun
+}
+
+# Function: RUN Launcher
+run_launcher() {
+    rofi \
+        -show run \
+        -theme-str 'entry {placeholder: "Run...";}'
+}
+
+# Function: CONFIRMATION Launcher
+conf_launcher() {
+    rofi \
+    -show run \
+    -theme ~/.config/rofi/confirm.rasi
+}
+
+# Function: Custom Menu
+custom_menu() {
+    # Menu options displayed in rofi
+    options=" \n \n \n\n\n\n"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/submenu.rasi -dmenu  -theme-str 'mainbox {children: ["listview" ];}' -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        " ")
+            rofi -show drun
+            ;;
+        " ")
+            pcmanfm-qt
+            ;;
+        " ")
+            session_options
+            ;;
+        " ")
+            foot
+            ;;
+        " ")
+            bash ~/.config/niri/scripts/openBrowser.sh
+            ;;
+        "")
+            bash ~/.config/scripts/launchrofi -sm
+            ;;
+        "")
+            manual_func
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+session_options() {
+    # Menu options displayed in rofi
+    options="  Shutdown\n  Reboot\n  Lock\n󰍃  Logout"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 4;}' -theme-str 'window {width: 285px;}' -theme-str 'mainbox {children: ["listview" ];}' -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "  Shutdown")
+            systemctl poweroff
+            ;;
+        "  Reboot")
+            systemctl reboot
+            ;;
+
+        "  Lock")
+            swaylock & disown
+            ;;
+        "󰍃  Logout")
+            niri msg action quit -s && sleep 1 && loginctl terminate-user "$USER"
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+
+widget_settings() {
+    # Menu options displayed in rofi
+    options="󰌍\n  Desk Clock\n  Change Stats\n  Change Music\n  Reload Widgets\n  Initalize"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            customize_func
+            ;;
+        "  Desk Clock")
+            bash ~/.config/niri/scripts/widgets.sh three
+            bash ~/.config/niri/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            widget_settings
+            ;;
+        "  Change Stats")
+            bash ~/.config/niri/scripts/widgets.sh one
+            bash ~/.config/niri/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            widget_settings
+            ;;
+        "  Change Music")
+            bash ~/.config/niri/scripts/widgets.sh two
+            bash ~/.config/niri/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            widget_settings
+            ;;
+        "  Reload Widgets")
+            bash ~/.config/niri/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            widget_settings
+            ;;
+        "  Initalize Widgets")
+            bash ~/.config/niri/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            widget_settings
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+default_apps_func() {
+    # Menu options displayed in rofi
+    options="󰌍\n  Browser\n󰠮  Editor"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            settings_func
+            ;;
+        "  Browser")
+            bash ~/.config/scripts/set-default-browser
+            default_apps_func
+            ;;
+        "󰠮  Editor")
+            bash ~/.config/scripts/set-default-editor
+            default_apps_func
+            ;;
+        *)
+            ;;
+    esac
+}
+
+settings_func() {
+    # Menu options displayed in rofi
+    options="󰌍\n  Activate Linux\n  Reload Shell\n  Set Default Apps\n󰌁  Customize Rice"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "  Activate Linux")
+            bash ~/.config/niri/scripts/widgets.sh four
+            bash ~/.config/niri/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            settings_func
+            ;;
+        "  Reload Shell\n")
+            pkill waybar
+            waybar >/dev/null 2>&1 & disown
+            bash ~/.config/niri/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            makoctl reload
+            settings_func
+            ;;
+        "  Set Default Apps")
+            default_apps_func
+            ;;
+        "󰌁  Customize Rice")
+            customize_func
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+
+customize_func() {
+    # Menu options displayed in rofi
+    options="󰌍\n  Widgets Settings\n  Wallpapers\n󰌁  Themes"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            settings_func
+            ;;
+        "  Widgets Settings")
+            widget_settings
+            ;;
+        "󰌁  Themes")
+            theme_menu
+            ;;
+        "  Wallpapers")
+            set_wallpaper
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+set_wallpaper() {
+
+    # Prompt user to choose an option
+    chosen=$(python ~/.config/niri/scripts/wallpapers.py echoImageNames | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
+    # Execute the corresponding command based on the selected option
+    echo $chosen
+    python ~/.config/niri/scripts/wallpapers.py changeWallpaper $chosen
+}
+
+maintain_menu() {
+    # Menu options displayed in rofi
+    options="󰌍\n󰃢  Clear Cache\n󱘡  Clear Clipboard"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "󰃢  Clear Cache")
+         	find ~/.cache -mindepth 1 -maxdepth 1 \
+         	  ! -name "spotify" \
+         	  ! -name "cliphist" \
+         	  ! -name "paru" \
+         	  ! -name "mcpelauncher-webview"\
+         	  ! -name "pip" \
+         	  ! -name "rofi-entry-history.txt" \
+         	  ! -name "plasma-polkit-agent" \
+         	  ! -name "spotube" \
+         	  ! -name "oss.krtirtho.spotube" \
+         	  -exec rm -rf {} + >/dev/null 2>&1 & disown
+            maintain_menu
+            ;;
+        "󱘡  Clear Clipboard")
+            rm -rf ~/.cache/cliphist >/dev/null 2>&1 & disown
+            maintain_menu
+            ;; 
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+manual_func() {
+    # Menu options displayed in rofi
+    options="󰌍\n  Keybinds"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "  Keybinds")
+            rofi -dmenu -theme-str 'window {width: 52%;}' -dmenu -theme-str 'listview {lines: 14;}' -i -p ' ' < ~/.config/hypr/scripts/help.txt
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+screenshot_func() {
+    # Menu options displayed in rofi
+    options="󰌍\n  Screenshots\n  Fullscreen\n  Selection"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "  Screenshots")
+            foot -e yazi ~/Pictures/Screenshots/
+            ;;
+        "  Fullscreen")
+            hyprshot -m output -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
+            ;;
+        "  Selection")
+            hyprshot -m region -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+connections_func() {
+    # Menu options displayed in rofi
+    options="󰌍\n󰤨  WiFi\n  Bluetooth"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "󰤨  WiFi") 
+            bash ~/.config/niri/scripts/rofiwifi.sh
+            ;;
+        " Bluetooth")
+            bash ~/.config/niri/scripts/rofi-bluetooth.sh
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+system_menu() {
+    # Menu options displayed in rofi
+    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n  Notifications\n  Session Options\n  Manual\n󰌁  Themes\n  Settings\n  Update System"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 12;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "  Apps")
+            drun_launcher
+            ;;
+        "  Connections")
+            connections_func
+            ;;
+        "󰃢  Maintaining")
+            maintain_menu
+            ;;
+        "󰅇  Clipboard")
+            rofi -modi Clipboard:~/.config/niri/scripts/clipboard.sh -show Clipboard -theme-str 'element { children: [element-text]; }'
+            ;;
+        "󰄀  Screenshot")
+            screenshot_func 
+            ;;
+        "  Notifications")
+            bash ~/.config/mako/scripts/rofi.sh
+            ;;
+        "  Session Options")
+            session_options
+            ;;
+        "  Update System")
+            foot --override=colors.alpha=1 --app-id=Update -e bash ~/.config/scripts/update
+            ;;
+        "󰌁  Themes")
+            theme_menu
+            ;;
+        "  Settings")
+            settings_func
+            ;;
+        "  Manual")
+            manual_func
+                    ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+theme_menu() {
+   THEME_DIR="$HOME/.config/binarydots/themes"
+
+    # Menu options displayed in rofi
+    THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
+    # Prompt user to choose an option
+    chosen=$(echo -e "󰌍\n$THEMES" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "" -theme-str 'listview {lines: 10;}')
+    
+    if [[ -z "$chosen" ]]; then 
+        exit 1
+    elif [[ "$chosen" = "󰌍" ]];then
+        system_menu
+    fi
+
+   $HOME/.config/scripts/change-theme -c $chosen 
+
+}
+
+
+
+# Check for flags and validate input
+if [[ $# -ne 1 ]]; then
+    usage
+fi
+
+# Execute the appropriate function based on the provided flag
+case "$1" in
+    --drun|-d)
+        drun_launcher
+        ;;
+    --window|-w)
+        rofi \
+        -show window \
+        -theme ~/.config/rofi/window.rasi
+        ;;
+
+    --run|-r)
+        run_launcher
+        ;;
+    --menu|-m)
+        custom_menu
+        ;;
+    --widget_settings|-ws)
+    	widget_settings
+    	;;
+     --rice_settings|-rs)
+     	settings_func
+     	;;
+     --power-menu|-pm)
+        session_options
+        ;;
+     --system_menu|--sys_menu|-sm)
+     	system_menu
+     	;;
+    --screenshot_menu|--ss_menu|-ss)
+     	screenshot_func
+     	;;
+    *)
+        usage
+        ;;
+esac
