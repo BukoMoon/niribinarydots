@@ -176,7 +176,7 @@ if [ ! -d "./config" ]; then
         "rmpc" "rofi" "waybar" "wiremix" "yazi" "wlogout" "scripts" "swaylock"
     )
 
-    for item in "${folders[@]}"; fo
+    for item in "${folders[@]}"; do
         src="$HOME/Dotfiles/config/$item"
         dest="$HOME/.config/$item"
 
