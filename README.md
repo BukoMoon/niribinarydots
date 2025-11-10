@@ -1,7 +1,7 @@
 
 ## Features
 
-- Powerfull system menu (SUPER + U)
+- Powerful system menu (SUPER + U)
 - System wide themes
 - Aesthetic widgets powered by <a href="https://github.com/Ewwii-sh/ewwii/tree/main">ewwii</a>
 - Auto-install script (designed for Arch-based distros)
@@ -23,9 +23,9 @@ Run this command to install:
 curl -fsSL -o install.sh https://raw.githubusercontent.com/BukoMoon/niribinarydots/refs/heads/main/install.sh && chmod +x install.sh && ./install.sh
 ```
 
-# Installing manualy (For non-Arch based distros)
+# Installing manually (For non-Arch based distros)
 
-» You have to install all the dependecies from your package manager.
+» You have to install all the dependencies from your package manager.
 
 » Copy folders inside config and scripts folder itself to your `~/.config` folder
 
