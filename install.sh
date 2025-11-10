@@ -116,7 +116,7 @@ PACKAGES=(
     rofi rofimoji btop starship
 )
 
-PACKAGES_URL=""
+PACKAGES_URL="https://raw.githubusercontent.com/BukoMoon/niribinarydots/refs/heads/main/PACKAGES"
 PACKAGES=($(curl -s "$PACKAGES_URL")) || true
 
 
@@ -144,7 +144,7 @@ if [ ! -d "./config" ]; then
     [ -d "$HOME/Dotfiles.old" ] && rm -rf "$HOME/Dotfiles.old" || true
     [ -d "$HOME/Dotfiles" ] && mv ~/Dotfiles ~/Dotfiles.old || true
 
-    REPO_URL=""
+    REPO_URL="https://github.com/BukoMoon/niribinarydots.git"
     PROXY_URL="https://gh-proxy.com/$REPO_URL"
 
     process "Cloning niribinarydots repo..." git clone "$PROXY_URL" ~/Dotfiles
