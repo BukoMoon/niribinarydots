@@ -20,7 +20,7 @@ I highly recommend using [Chaotic AUR](https://aur.chaotic.cx/docs)
 
 Run this command to install:
 ```
-curl -fsSL -o install.sh https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/install.sh && chmod +x install.sh && ./install.sh
+curl -fsSL -o install.sh https://raw.githubusercontent.com/BukoMoon/niribinarydots/refs/heads/main/install.sh && chmod +x install.sh && ./install.sh
 ```
 
 # Installing manualy (For non-Arch based distros)
