@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
+if [ ! -t 0 ]; then
+    curl -fsSL -o /tmp/install.sh https://raw.githubusercontent.com/BukoMoon/niribinarydots/refs/heads/main/install.sh
+    chmod +x /tmp/install.sh
+    exec /tmp/install.sh "$@"
+fi
+
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 BLUE=$(tput setaf 4)
@@ -170,8 +176,8 @@ mkdir -p "$HOME/dots.old"
 
 folders=(
     "binarydots" "cava" "ewwii" "fastfetch" "foot" "gtk-3.0" "gtk-4.0"
-    "mako" "mpd" "mpv" "nvim" "niri" pcmanfm-qt" "nwg-look" "qt6ct"
-    "rmpc" "rofi" "waybar" "wiremix" "yazi" "wlogout" "scripts"
+    "mako" "mpd" "mpv" "niri" pcmanfm-qt" "nwg-look" "qt6ct"
+    "rmpc" "rofi" "waybar" "wiremix" "yazi" "wlogout" "scripts" "swaylock"
 )
 
 for item in "${folders[@]}"; fo
