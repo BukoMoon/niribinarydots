@@ -136,12 +136,12 @@ fi
 NVIDIGPU="yes"
 if lspci | grep -qi 'NVIDIA'; then
     info "NVIDIA GPU detected."
-    if ! pacman -Qi nvidia-dkms >/dev/null 2>&1; then
-         process "Installing nvidia-dkms (required for NVIDIA GPUs)..." paru -S --noconfirm --needed nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually"
-         info "nvidia-dkms installed successfully."
-    else
-        info "nvidia-dkms already installed."
-    fi
+    #if ! pacman -Qi nvidia-dkms >/dev/null 2>&1; then
+    #     process "Installing nvidia-dkms (required for NVIDIA GPUs)..." paru -S --noconfirm --needed nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually"
+    #     info "nvidia-dkms installed successfully."
+    #else
+    #    info "nvidia-dkms already installed."
+    #fi
 else
 NVIDIGPU="no"
 fi
