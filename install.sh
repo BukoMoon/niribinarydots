@@ -63,7 +63,7 @@ process() {
     gum spin --spinner dot --title "$title" -- "$@"
 }
 
-error() { gum style --foreground "$FF5555" -- <<< "X $1"; }
+error() { gum style --foreground "#FF5555" -- <<< "X $1"; }
 
 echo -e "${BLUE} BINARYDOTS FOR NIRI\n${RESET}"
 
