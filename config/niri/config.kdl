@@ -487,6 +487,9 @@ hotkey-overlay {
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 cursor {
+    xcursor-theme "Bibata-Modern-Classic"
+    xcursor-size 24
+
     hide-when-typing
     hide-after-inactive-ms 10000
 }
