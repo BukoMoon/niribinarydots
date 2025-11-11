@@ -201,121 +201,121 @@ if [ ! -d "./config" ]; then
 
     info "Linked scripts and config files."
 
-    if [ "$NVIDIGPU" = 'yes' ]; then
-        process "Setting up Nvidia GPU" bash -c '
-        sudo mkdir -p /etc/nvidia/nvidia-application-profiles-rc.d/
-
-        sudo touch /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositors.json
-    sudo echo "{
-       "rules": [
-           {
-               "pattern": {
-                   "feature": "procname",
-                   "matches": "niri"
-               },
-               "profile": "Limit Free Buffer Pool On Wayland Compositors"
-           }
-       ],
-       "profiles": [
-           {
-               "name": "Limit Free Buffer Pool On Wayland Compositors"
-               "settings": [
-                   {
-                       "key": "GLVidHeapReuseRatio",
-                       "value": 0
-                   }
-               ]
-           }
-       ]
-    }" > /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositor.json
-    '
-    fi
-
-
-    dconf write "/org/gnome/desktop/interface/color-scheme" '"prefer-dark"'
-    info "Set UI to dark mode..."
-
-    if confirmation_alt "Set up MPD? (Not Recommended for new users - its worth)"; then
-        process "Setting up MPD" bash -c '
-
-        systemctl --user enable mpd
-
-        systemctl --user start mpd
-        '
-
-        if [ $? -eq 0 ]; then
-            info "MPD setup succeeded"
-        else
-            error "MPD setup failed"
-        fi
-    else
-        rm -rf ~/.config/rmpc/
-        rm -rf ~/.config/mpd
-        if [ -d "$HOME/dots.old/rmpc" ]; then
-            cp -r "$HOME/dots.old/rmpc" "$HOME/.config/" > /dev/null 2>&1
-        fi
-        if [ -d "$HOME/dots.old/mpd" ]; then
-            cp -r "$HOME/dots.old/mpd" "$HOME/.config" > /dev/null 2>&1
-        fi
-    fi
-
-    current_shell=$(getent passwd "$USER" | cut -d: -f7)
-
-    if [ "$current_shell" != "/usr/bin/fish" ] && [ "$current_shell" != "/bin/fish" ]; then
-        if confirmation_alt "Change default shell to fish?"; then
-            if chsh -s /bin/fish "$USER"; then
-                info "Default shell changed to fish."
-
-                if confirmation_alt "Install some utils? (Highly Recommended)"; then
-                    if process "Installing utilities" paru -S --needed eza ripgrep ; then
-                        info "Successfully install utilities."
-                    else
-                        error "Failed to install utilities."
-                    fi
-                fi
-            else
-                error "Failed to change shell."
-            fi
-        fi
-    fi
-
-    ln -sf "$HOME/.config/niri/wallpapers/lines.jpg" "$HOME/.config/niri/wallppr.png"
-
-    python ~/.config/niri/scripts/wallpapers.py changeWallpaper Lines >/dev/null 2>&1 & disown
-
-    if pgrep niri-session >/dev/null; then
-        info "Detected Niri session."
-
-        process "Reloading Components..." bash -c '
-
-        pkill waybar >/dev/null 2>&1 & disown
-
-        if pgrep awww-daemon >/dev/null; then
-           pkill awww-daemon
-           sleep 0.5
-        fi
-
-        if pgrep ewwii >/dev/null; then
-           killall ewwii
-           ewwii daemon >/dev/null 2>&1 & disown
-           for widget in "status" "desktopmusic" ; do
-               ewwii open "$widget" >/dev/null 2>&1 &
-           done
-        fi
-
-        setsid awww-daemon >/dev/null 2>&1 &
-        '
-
-        info "Reloaded Components."
-    fi
-
-    cd ..
-    process "Cleaning up..." rm -rf niribinarydots
-    info "Cleaned."
-
-    $HOME/Dotfiles/config/scripts/change-theme -c Binary >> /dev/null
-    echo -e "${GREEN} Installation complete! Please restart your computer!"
-
 else
     info "Files already installed."
 fi
+
+#if [ "$NVIDIGPU" = 'yes' ]; then
+#process "Setting up Nvidia GPU" bash -c '
+#sudo mkdir -p /etc/nvidia/nvidia-application-profiles-rc.d/
+
+#sudo touch /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositors.json
+#sudo echo "{
+#"rules": [
+#    {
+#        "pattern": {
+#            "feature": "procname",
+#            "matches": "niri"
+#        },
+#        "profile": "Limit Free Buffer Pool On Wayland Compositors"
+#    }
+#],
+#"profiles": [
+#    {
+#        "name": "Limit Free Buffer Pool On Wayland Compositors"
+#        "settings": [
+#            {
+#                "key": "GLVidHeapReuseRatio",
+#                "value": 0
+#            }
+#        ]
+#    }
+#]
+#}" > /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositor.json
+#'
+#fi
+
+
+dconf write "/org/gnome/desktop/interface/color-scheme" '"prefer-dark"'
+info "Set UI to dark mode..."
+
+if confirmation_alt "Set up MPD? (Not Recommended for new users - its worth)"; then
+    process "Setting up MPD" bash -c '
+
+    systemctl --user enable mpd
+
+    systemctl --user start mpd
+    '
+
+    if [ $? -eq 0 ]; then
+        info "MPD setup succeeded"
+    else
+        error "MPD setup failed"
+    fi
+else
+    rm -rf ~/.config/rmpc/
+    rm -rf ~/.config/mpd
+    if [ -d "$HOME/dots.old/rmpc" ]; then
+        cp -r "$HOME/dots.old/rmpc" "$HOME/.config/" > /dev/null 2>&1
+    fi
+    if [ -d "$HOME/dots.old/mpd" ]; then
+        cp -r "$HOME/dots.old/mpd" "$HOME/.config" > /dev/null 2>&1
+    fi
+fi
+
+current_shell=$(getent passwd "$USER" | cut -d: -f7)
+
+if [ "$current_shell" != "/usr/bin/fish" ] && [ "$current_shell" != "/bin/fish" ]; then
+    if confirmation_alt "Change default shell to fish?"; then
+        if chsh -s /bin/fish "$USER"; then
+            info "Default shell changed to fish."
+
+            if confirmation_alt "Install some utils? (Highly Recommended)"; then
+                if process "Installing utilities" paru -S --needed --noconfirm eza sudo-rs bat ripgrep sd fd ; then
+                    info "Successfully install utilities."
+                else
+                    error "Failed to install utilities."
+                fi
+            fi
+        else
+            error "Failed to change shell."
+        fi
+    fi
+fi
+
+#ln -sf "$HOME/.config/niri/wallpapers/Lines.png" "$HOME/.config/niri/wallppr.png"
+
+python ~/.config/niri/scripts/wallpapers.py changeWallpaper Lines >/dev/null 2>&1 & disown
+
+if pgrep niri >/dev/null; then
+    info "Detected Niri session."
+
+    process "Reloading Components..." bash -c '
+
+    pkill waybar >/dev/null 2>&1 & disown
+
+    if pgrep awww-daemon >/dev/null; then
+        pkill awww-daemon
+        sleep 0.5
+    fi
+
+    if pgrep ewwii >/dev/null; then
+        killall ewwii
+        ewwii daemon >/dev/null 2>&1 & disown
+        for widget in "status" "desktopmusic" ; do
+            ewwii open "$widget" >/dev/null 2>&1 &
+        done
+    fi
+
+    setsid awww-daemon >/dev/null 2>&1 &
+    '
+
+    info "Reloaded Components."
+fi
+
+cd ..
+process "Cleaning up..." rm -rf niribinarydots
+info "Cleaned."
+
+$HOME/Dotfiles/config/scripts/change-theme -c Binary >> /dev/null
+echo -e "${GREEN} Installation complete! Please restart your computer!"

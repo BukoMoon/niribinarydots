@@ -48,10 +48,6 @@ change_theme () {
 
     bash ~/.config/scripts/wallpaper -s "$WALLPAPER"
 
-    sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$SCHEME\"/" ~/.zshrc
-
-    sed -i "s/vim\.cmd(\"colorscheme .*\")/vim.cmd(\"colorscheme $SCHEME\")/" ~/.config/nvim/init.lua
-
     sed -i "s|\(color_scheme_path=.*/\).*|\1$SCHEME.conf|" ~/.config/qt6ct/qt6ct.conf
 
     sed -i "s/theme: \".*\",/theme: \"$SCHEME\",/" ~/.config/rmpc/config.ron || echo
@@ -59,9 +55,10 @@ change_theme () {
     pgrep "mako" > /dev/null && makoctl reload
 
     pgrep "waybar" > /dev/null && pkill waybar >/dev/null 2>&1
-    pgrep "Niri" > /dev/null && waybar >/dev/null 2>&1 & disown
+    pgrep "niri" > /dev/null && waybar >/dev/null 2>&1 & disown
+    awww img ~/config/niri/wallppr.png --transition-fps 60 --transition-step 255 --transaction-type any
 
-    pgrep "Niri" > /dev/null && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
+    pgrep "niri" > /dev/null && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
     echo -e "Theme changed to $chosen"
 }
 
