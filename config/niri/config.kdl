@@ -44,7 +44,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
     Super+L hotkey-overlay-title="Open Logout Menu" { spawn "bash" "-c" "pkill wlogout || wlogout"; }
 
     Super+Super_L repeat=false hotkey-overlay-title="Open Application Launcher" { spawn "bash" "-c" "pkill rofi || bash -i -c 'rofi -show drun'"; }
