@@ -23,7 +23,7 @@
     "height": 0,
 
     "modules-left": ["group/customs", "mpris"],
-    "modules-center": ["niri/workspaces"],
+    "modules-center": ["niri/workspaces", "power-profiles-daemon"],
     "modules-right": ["group/tray-expander", "group/controlCenter", "clock", "group/hardware", "custom/updates", "custom/mako"],
 
     "hyprland/language": {
