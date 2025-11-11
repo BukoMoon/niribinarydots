@@ -33,10 +33,10 @@
 // ====================== Custom Modules ======================
 
 "custom/search": {
-    
+
     "format": " ",
     "tooltip": false,
-    
+
     "on-click": "~/.config/scripts/launchrofi --drun",
 },
 
@@ -44,7 +44,7 @@
 
     "format": " ",
     "tooltip": false,
-    
+
     "on-click": "~/.config/scripts/launchrofi --system_menu"
 },
 
@@ -62,9 +62,9 @@
 // ====================== Media ======================
 
 "mpris": {
-    
+
     "format": "{status_icon}",
-    
+
     "player-icons": {
       "default": "  Playing"},
 
@@ -83,7 +83,7 @@
 
 
 // ====================== Wireless ======================
-  
+
 "network": {
 
     "format-wifi": "{icon}",
@@ -117,9 +117,9 @@
 
 
 // ====================== System ======================
-  
+
 "power-profiles-daemon": {
-    
+
     "format": "{icon}",
     "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
     "tooltip": true,
@@ -136,10 +136,10 @@
     "on-click": "bash ~/.config/niri/scripts/actioncenter.sh &  ewwii close calendar",
 
     "states": {"good": 95, "warning": 30, "critical": 20},
-    
+
     "format": "{icon}",
     "format-charging": "󰠠 ",
-    "format-plugged": "󰠠 ",,
+    "format-plugged": "󰠠 ",
     "format-alt": "{time} {icon}",
 
     "format-alt-icons": [
@@ -150,10 +150,10 @@
 "pulseaudio": {
     "max-volume": 150,
     "scroll-step": 10,
-    
+
     "format": "{icon}",
     "tooltip-format": "{icon}  {volume}%",
-    
+
     "format-icons": {
     "headphone": " ",
     "format-muted": " ",
@@ -171,13 +171,13 @@
 
 
 "backlight": {
-    
+
     "device": "intel_backlight",
 
     "format": "{icon}",
     "tooltip-format": "{icon} {percent}%",
     "format-icons": [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-    
+
     "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar"
 },
 
@@ -190,7 +190,7 @@
 /*
 "custom/swaync": {
     "tooltip": false,
-    
+
     "format": "{icon}",
     "format-icons": {
         "notification": "<span foreground='#7b82c6'><sup></sup></span>",
@@ -206,7 +206,7 @@
     "return-type": "json",
     "exec-if": "which swaync-client",
     "exec": "swaync-client -swb",
-    
+
     "on-click": "swaync-client -t -sw & ewwii close actioncenter calendar musiccenter",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
@@ -236,14 +236,14 @@
 // ====================== Workspaces ======================
 
 "niri/workspaces": {
-    
+
     "format":"{icon}",
     "icon-size": 32,
     "spacing": 16,
-    
+
     //"on-scroll-up": "hyprctl dispatch workspace r+1",
     //"on-scroll-down": "hyprctl dispatch workspace r-1",
-    
+
     "persistent-workspaces": { "*": 4 },
     "format-icons": {
         //"1": "一",
@@ -327,7 +327,7 @@
 			"battery",
 		]
 },
-    
+
 "group/leftSide": {
 	"orientation": "horizontal",
 	"modules": [

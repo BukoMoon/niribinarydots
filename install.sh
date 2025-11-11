@@ -65,7 +65,14 @@ process() {
 
 error() { gum style --foreground "#FF5555" -- <<< "X $1"; }
 
-echo -e "${BLUE} BINARYDOTS FOR NIRI\n${RESET}"
+echo -e "${BLUE}
+██████╗ ██╗███╗   ██╗ █████╗ ██████╗ ██╗   ██╗██████╗  ██████╗ ████████╗███████╗
+██╔══██╗██║████╗  ██║██╔══██╗██╔══██╗╚██╗ ██╔╝██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝
+██████╔╝██║██╔██╗ ██║███████║██████╔╝ ╚████╔╝ ██║  ██║██║   ██║   ██║   ███████╗
+██╔══██╗██║██║╚██╗██║██╔══██║██╔══██╗  ╚██╔╝  ██║  ██║██║   ██║   ██║   ╚════██║
+██████╔╝██║██║ ╚████║██║  ██║██║  ██║   ██║   ██████╔╝╚██████╔╝   ██║   ███████║
+╚═════╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝ \n${RESET}"
+echo -e "${BLUE} FOR NIRI\n${RESET}"
 
 if [[ $EUID -eq 0 ]]; then
     error "Please do not run this script as root.\n"
@@ -205,35 +212,34 @@ else
     info "Files already installed."
 fi
 
-#if [ "$NVIDIGPU" = 'yes' ]; then
-#process "Setting up Nvidia GPU" bash -c '
-#sudo mkdir -p /etc/nvidia/nvidia-application-profiles-rc.d/
+if [ "$NVIDIGPU" = 'yes' ]; then
+    process "Setting up Nvidia GPU"
+    sudo mkdir -p /etc/nvidia/nvidia-application-profiles-rc.d/
 
-#sudo touch /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositors.json
-#sudo echo "{
-#"rules": [
-#    {
-#        "pattern": {
-#            "feature": "procname",
-#            "matches": "niri"
-#        },
-#        "profile": "Limit Free Buffer Pool On Wayland Compositors"
-#    }
-#],
-#"profiles": [
-#    {
-#        "name": "Limit Free Buffer Pool On Wayland Compositors"
-#        "settings": [
-#            {
-#                "key": "GLVidHeapReuseRatio",
-#                "value": 0
-#            }
-#        ]
-#    }
-#]
-#}" > /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositor.json
-#'
-#fi
+    sudo touch /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositors.json
+    sudo echo "{
+"rules": [
+    {
+        "pattern": {
+            "feature": "procname",
+            "matches": "niri"
+        },
+        "profile": "Limit Free Buffer Pool On Wayland Compositors"
+    }
+],
+"profiles": [
+    {
+        "name": "Limit Free Buffer Pool On Wayland Compositors"
+        "settings": [
+            {
+                "key": "GLVidHeapReuseRatio",
+                "value": 0
+            }
+        ]
+    }
+]
+}" > /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositor.json
+fi
 
 
 dconf write "/org/gnome/desktop/interface/color-scheme" '"prefer-dark"'
@@ -283,7 +289,7 @@ if [ "$current_shell" != "/usr/bin/fish" ] && [ "$current_shell" != "/bin/fish" 
     fi
 fi
 
-#ln -sf "$HOME/.config/niri/wallpapers/Lines.png" "$HOME/.config/niri/wallppr.png"
+ln -sf "$HOME/.config/niri/wallpapers/Lines.png" "$HOME/.config/niri/wallppr.png"
 
 python ~/.config/niri/scripts/wallpapers.py changeWallpaper Lines >/dev/null 2>&1 & disown
 
@@ -318,4 +324,8 @@ process "Cleaning up..." rm -rf niribinarydots
 info "Cleaned."
 
 $HOME/Dotfiles/config/scripts/change-theme -c Binary >> /dev/null
-echo -e "${GREEN} Installation complete! Please restart your computer!"
+echo -e "${GREEN} Installation complete!"
+
+if [ "$NVIDIGPU" = 'yes' ]; then
+    echo -e "${GREEN}  Please restart your computer!"
+fi
