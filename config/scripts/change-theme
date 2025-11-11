@@ -37,11 +37,11 @@ change_theme () {
 
        # Widget Styles
     if [[ "$SCHEME" == "gnome" ]]; then
-        ln -sf "$HOME/.config/binarydots/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
+        ln -sf "$HOME/.config/binarydots/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
     elif [[ "$SCHEME" == "windoes" ]]; then
-        ln -sf "$HOME/.config/binarydots/styles/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
+        ln -sf "$HOME/.config/binarydots/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
     else
-        ln -sf "$HOME/.config/binarydots/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
+        ln -sf "$HOME/.config/binarydots/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
     fi
 
     bash ~/.config/niri/scripts/widgets.sh r >/dev/null 2>&1 & disown

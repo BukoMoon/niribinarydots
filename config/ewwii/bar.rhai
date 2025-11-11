@@ -1,7 +1,7 @@
 /*enter([
   listen("workspaces-list", #{
     initial: "i",
-    cmd: "hyprland-workspaces `hyprctl monitors -j | jq -r \".[0].name\"`",
+    cmd: "niri-workspaces `niri msg --json workspaces | jq -r \".[0].output\"`",
   });
 ]) */
 
