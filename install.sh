@@ -118,7 +118,7 @@ fi
 PACKAGES=(
     breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
     ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd noto-fonts-cjk
-    mate-polkit wlogout
+    mate-polkit wlogout jq
     yazi wiremix fzf hyprlock
     power-profiles-daemon udiskie network-manager-applet brightnessctl
     cliphist stow git fish unzip fastfetch pamixer mako foot awww-git
