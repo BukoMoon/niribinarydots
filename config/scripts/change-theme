@@ -56,7 +56,6 @@ change_theme () {
 
     pgrep "waybar" > /dev/null && pkill waybar >/dev/null 2>&1
     pgrep "niri" > /dev/null && waybar >/dev/null 2>&1 & disown
-    awww img ~/config/niri/wallppr.png --transition-fps 60 --transition-step 255 --transaction-type any
 
     pgrep "niri" > /dev/null && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
     echo -e "Theme changed to $chosen"
