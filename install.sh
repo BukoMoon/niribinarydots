@@ -213,32 +213,32 @@ else
 fi
 
 if [ "$NVIDIGPU" = 'yes' ]; then
-    process "Setting up Nvidia GPU"
-    sudo mkdir -p /etc/nvidia/nvidia-application-profiles-rc.d/
-
-    sudo touch /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositors.json
-    sudo echo "{
-"rules": [
-    {
-        "pattern": {
-            "feature": "procname",
-            "matches": "niri"
-        },
-        "profile": "Limit Free Buffer Pool On Wayland Compositors"
-    }
-],
-"profiles": [
-    {
-        "name": "Limit Free Buffer Pool On Wayland Compositors"
-        "settings": [
-            {
-                "key": "GLVidHeapReuseRatio",
-                "value": 0
-            }
-        ]
-    }
-]
-}" > /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositor.json
+    info "Setting up Nvidia GPU"
+#    sudo mkdir -p /etc/nvidia/nvidia-application-profiles-rc.d/
+#
+#    sudo touch /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositors.json
+#    sudo echo "{
+#"rules": [
+#    {
+#        "pattern": {
+#            "feature": "procname",
+#            "matches": "niri"
+#        },
+#        "profile": "Limit Free Buffer Pool On Wayland Compositors"
+#    }
+#],
+#"profiles": [
+#    {
+#        "name": "Limit Free Buffer Pool On Wayland Compositors"
+#        "settings": [
+#            {
+#                "key": "GLVidHeapReuseRatio",
+#                "value": 0
+#            }
+#        ]
+#    }
+#]
+#}" > /etc/nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositor.json
 fi
 
 
@@ -324,8 +324,8 @@ process "Cleaning up..." rm -rf niribinarydots
 info "Cleaned."
 
 $HOME/Dotfiles/config/scripts/change-theme -c Binary >> /dev/null
-echo -e "${GREEN} Installation complete!"
 
 if [ "$NVIDIGPU" = 'yes' ]; then
     echo -e "${GREEN}  Please restart your computer!"
 fi
+echo -e "${GREEN} Installation complete!"
