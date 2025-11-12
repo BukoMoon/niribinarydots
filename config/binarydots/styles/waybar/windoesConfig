@@ -9,7 +9,7 @@
 // -----------------------------------------------------
 //
 
-// ====================== Main ======================  
+// ====================== Main ======================
 
 {
     "layer": "top",
@@ -50,21 +50,21 @@
 "custom/search": {
     "format": " ",
     "tooltip": false,
-    
+
     "on-click": "~/.config/scripts/rofilaunch.sh --drun",
 },
 
 "custom/runner": {
     "format": " ",
     "tooltip": false,
-    
+
     "on-click": "~/.config/scripts/rofilaunch.sh --system_menu",
 },
 
 "custom/os_button": {
     "format": "",
     "tooltip": false,
-    
+
     "on-click": "~/.config/scripts/rofilaunch.sh --drun",
 },
 
@@ -80,7 +80,7 @@
   "mpris": {
 
     "format": "{status_icon}",
-    
+
     "player-icons": {
         "default": "▶  Playing",
     },
@@ -124,7 +124,7 @@
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-    
+
     "on-click": "blueman-manager"
 },
 
@@ -150,11 +150,11 @@
 },
 
 "battery": {
-    
+
     "on-click": "bash ~/.config/niri/scripts/actioncenter.sh &  ewwii close calendar",
-    
+
     "states": {"good": 95, "warning": 30, "critical": 20},
-    
+
     "format": "{icon}",
     "format-charging": "󰠠 ",
     "format-plugged": "󰠠 ",
@@ -164,14 +164,14 @@
         "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     "format-icons": [" ", " ", " ", " ", " "]
 },
-  
+
 "pulseaudio": {
-    "max-volume": 150,
+    "max-volume": 100,
     "scroll-step": 10,
 
     "format": "{icon}",
     "tooltip-format": "{icon}  {volume}%",
-    
+
     "format-icons": {
       "format-muted": " ",
       "default": [" ", " "]
@@ -224,7 +224,7 @@
     "return-type": "json",
     "exec-if": "which swaync-client",
     "exec": "swaync-client -swb",
-    
+
     "on-click": "swaync-client -t -sw & ewwii close actioncenter calendar musiccenter",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
@@ -258,10 +258,10 @@
     "format":"{icon}",
     "icon-size": 32,
     "spacing": 16,
-    
+
     //"on-scroll-up": "hyprctl dispatch workspace r+1",
     //"on-scroll-down": "hyprctl dispatch workspace r-1",
-    
+
     "persistent-workspaces": { "*": 4 },
     "format-icons": {
         //"1": "一",
@@ -282,19 +282,19 @@
 
 
 
-// ====================== Taskbar ====================== 
+// ====================== Taskbar ======================
 
 "wlr/taskbar": {
     "format": "{icon}",
     "icon-size": 36,
     "spacing": 16,
-   
+
     "sort-by-app-id": true,
 
     "on-click-middle": "close",
     "tooltip-format": "{title}",
     "ignore-list": [],
-    
+
     "on-click": "activate"
 },
 
@@ -310,9 +310,9 @@
 "clock": {
     "format": "   {:%R\n %d.%m.%Y} ",
     "tooltip-format": " {:%d %B %Y}",
-    
+
     "on-click": "ewwii open calendar --toggle --no-daemonize & ewwii close actioncenter musiccenter",
-    
+
 },
 
   "memory": {

@@ -148,7 +148,7 @@
 },
 
 "pulseaudio": {
-    "max-volume": 150,
+    "max-volume": 100,
     "scroll-step": 10,
 
     "format": "{icon}",
