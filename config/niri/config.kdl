@@ -1,4 +1,4 @@
- animations {
+animations {
     workspace-switch {
         spring damping-ratio=0.8 stiffness=523 epsilon=0.0001
     }
@@ -43,16 +43,15 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
+    Mod+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
     Super+L hotkey-overlay-title="Open Logout Menu" { spawn "bash" "-c" "pkill wlogout || wlogout"; }
 
-    Super+Super_L repeat=false hotkey-overlay-title="Open Application Launcher" { spawn "bash" "-c" "pkill rofi || bash -i -c 'rofi -show drun'"; }
-    Super+Tab hotkey-overlay-title="Open Quick Menu" { spawn "bash" "-c" "pkill rofi || ~/.config/scripts/launchrofi --menu"; }
-    Super+Alt+Space hotkey-overlay-title="Open Run Menu" { spawn "bash" "-c" "pkill rofi || bash -ic '~/.config/scripts/launchrofi -r'"; }
-    Super+Space hotkey-overlay-title="Open System Menu" { spawn "bash" "-c" "~/.config/scripts/launchrofi --system_menu"; }
+    Mod+Super_L hotkey-overlay-title="Run an Application: rofi" { spawn "bash" "-c" "pkill rofi || bash -i -c 'rofi -show drun'"; }
+    Mod+D hotkey-overlay-title="Open Quick Menu" { spawn "bash" "-c" "pkill rofi || ~/.config/scripts/launchrofi --menu"; }
+    Mod+Alt+Space hotkey-overlay-title="Open Run Menu" { spawn "bash" "-c" "pkill rofi || bash -ic '~/.config/scripts/launchrofi -r'"; }
+    Mod+Space hotkey-overlay-title="Open System Menu" { spawn "bash" "-c" "$HOME/.config/scripts/launchrofi --system_menu"; }
 
-    Super+I hotkey-overlay-title="Reload Waybar, Ewwii" { spawn "bash" "-c" "pkill waybar; waybar; ewwii r; makoctl reload"; }
+    Mod+M hotkey-overlay-title="Reload Waybar, Ewwii" { spawn "bash" "-c" "pkill waybar; waybar; ewwii r; makoctl reload"; }
     Super+C hotkey-overlay-title="Launch Text Editor" { spawn "bash" "-c" "emacsclient -c -a 'emacs'"; }
     Super+E hotkey-overlay-title="Launch File Manager" { spawn "foot" "-e" "yazi"; }
     Super+B hotkey-overlay-title="Launch Browser" { spawn "bash" "~/.config/niri/scripts/openBrowser.sh"; }
@@ -63,7 +62,7 @@ binds {
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
+    //Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -79,7 +78,7 @@ binds {
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
-    // Open/close the Overview: a zoomed-out view of workspaces and windows.
+    // Open/close the  : a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
     Mod+Tab repeat=false { toggle-overview; }
@@ -316,7 +315,6 @@ environment {
    ELECTRON_OZONE_PLATFORM_HINT "wayland"
    QT_QPA_PLATFORMTHEME "qt6ct"
    QT_QPA_PLATFORMTHEME_QT6 "qt6ct"
-   TERMINAL "foot"
    XCURSOR_THEME "Bibata-Modern-Classic"
    XCURSOR_SIZE "24"
 }
@@ -340,6 +338,12 @@ input {
     }
 }
 
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
 spawn-at-startup "bash" "-c" "awww-daemon"
 spawn-at-startup "~/.config/niri/scripts/widgets.sh" "s"
@@ -353,7 +357,7 @@ spawn-at-startup "wl-paste" "--type image --watch cliphist store"
 spawn-at-startup "udiskie"
 spawn-at-startup "blueman-applet &"
 spawn-at-startup "awww" "img ~/.config/niri/wallppr.png --transition-fps 60 --transition-step 255 --transition-type any"
-
+spawn-at-startup "foot"
 spawn-at-startup "mpdris2-rs" "-h"
 spawn-at-startup "tuxedo-control-center --tray"
 
@@ -403,6 +407,14 @@ output "eDP-1" {
     scale 1
 
     transform "normal"
+}
+
+layer-rule {
+    match namespace="waybar"
+
+    shadow {
+        off
+    }
 }
 
 layer-rule {
