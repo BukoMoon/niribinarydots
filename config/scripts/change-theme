@@ -40,6 +40,8 @@ change_theme () {
         ln -sf "$HOME/.config/binarydots/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
     elif [[ "$SCHEME" == "windoes" ]]; then
         ln -sf "$HOME/.config/binarydots/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
+    elif [[ "$SCHEME" == "buko" ]]; then
+        ln -sf "$HOME/.config/binarydots/ewwii/buko.rhai" "$HOME/.config/ewwii/style.rhai"
     else
         ln -sf "$HOME/.config/binarydots/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
     fi
@@ -55,7 +57,7 @@ change_theme () {
     pgrep "mako" > /dev/null && makoctl reload
 
     pgrep "waybar" > /dev/null && pkill waybar >/dev/null 2>&1
-    pgrep "niri" > /dev/null && waybar >/dev/null 2>&1 & disown
+    waybar >/dev/null 2>&1 & disown
 
     pgrep "niri" > /dev/null && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
     echo -e "Theme changed to $chosen"

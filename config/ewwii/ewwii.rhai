@@ -462,11 +462,11 @@ defwindow(
         windowtype: "normal",
         stacking: "bg",
         geometry: #{
-        x: "25%",
-        y: "12%",
+        x: style_file::clock_x(),
+        y: style_file::clock_y(),
         width: "0%",
         height: "0%",
-        anchor: "top right",
+        anchor: style_file::clock_anchor(),
       },
     },
         box(#{

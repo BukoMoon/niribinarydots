@@ -1,5 +1,5 @@
 fn calendar_anchor() {
-    return "top center"
+    return "top right"
 }
 
 fn quick_center_anchor() {
@@ -11,7 +11,7 @@ fn bar_widget_namespace() {
 }
 
 fn clock_x() {
-    return "0%"
+    return "25%"
 }
 
 fn clock_y() {
@@ -19,5 +19,5 @@ fn clock_y() {
 }
 
 fn clock_anchor() {
-    return "top center"
+    return "top right"
 }
