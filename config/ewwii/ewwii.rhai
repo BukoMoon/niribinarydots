@@ -55,8 +55,8 @@ fn mini_player(musicartlink, music_title, music_position,music_position_percenta
 
 }
 
-fn quick_center_content(up_time, volume, brightness, mic_percent, network_status, bluetooth_status, dnd_status, sunset_status, cafein_status, power_mode) {
-    let pfp_path = cmd::run_and_read(`[ -f "$HOME/.face" ] && printf "%s" "$(realpath "$HOME/.face")" || printf "%s" "$HOME/placeholder.png"`);
+fn quick_center_content(up_time, volume, brightness, mic_percent, network_status, bluetooth_status, dnd_status, power_mode) {
+    let pfp_path = cmd::run_and_read(`[ -f "$HOME/.face" ] && printf "%s" "$(realpath "$HOME/.face")" || printf "%s" "$HOME/.config/binarydots/ewwii/placeholder.png"`);
     let username = cmd::run_and_read("whoami");
     let user_host = cmd::run_and_read(`echo "$(id -un)@$(uname -n)"`);
     return box(#{
@@ -97,10 +97,8 @@ fn quick_center_content(up_time, volume, brightness, mic_percent, network_status
                 box(#{ class: "random" }, [
                 button(#{ label: " ", class: if network_status != "no-network" { "button-active" } else { "button" }, onclick: "rfkill toggle wifi &"}),
                 button(#{ label: "󰂯", class: if bluetooth_status != "no" { "button-active" } else { "button" }, onclick: "rfkill toggle bluetooth"}),
-                button(#{ label: " ", class: if sunset_status != "no-process" { "button-active" } else { "button" }, onclick: "bash ~/.config/scripts/toggle-sunset" })
                 ]),
             box(#{ class: "random" }, [
-                button(#{ label: " ", class: if cafein_status == "no-process" { "button-active" } else { "button" }, onclick: "$HOME/.config/hypr/scripts/cafein toggle" }),
                 button(#{ label: " ", class: if dnd_status == "on" { "button-active" } else { "button" }, onclick: "makoctl mode -t dnd" }),
                 button(#{ label: " ", class: "button", onclick: "~/.config/scripts/launchrofi --system_menu& ewwii close actioncenter"})
                 ]),
@@ -258,18 +256,6 @@ enter([
       initial: "yes",
       interval: "5",
       cmd: `bluetoothctl show | grep "Powered" | cut -c11-`, // command to execute"
-  }),
-
-  poll("sunset_status", #{
-      initial: "yes",
-      interval: "5",
-      cmd: `pid=$(pgrep hyprsunset | head -n1); if [ -z "$pid" ]; then echo "no-process"; else echo "$pid"; fi`, // command to execute"
-  }),
-
-  poll("cafein_status", #{
-      initial: "yes",
-      interval: "5",
-      cmd: `pid=$(pgrep hypridle | head -n1); if [ -z "$pid" ]; then echo "no-process"; else echo "$pid"; fi`, // command to execute"
   }),
 
     poll("dnd_status", #{
@@ -593,7 +579,7 @@ defwindow(
         space_evenly: false,
         orientation: "vertical",
         spacing: 10,
-        }, [quick_center_content(up_time, volume, brightness, mic_percent, network_status, bluetooth_status, dnd_status, sunset_status, cafein_status, power_mode),mini_player(musicartlink, music_title, music_position, music_position_percentage, music_loop, music_shuffle, music_lenght, playing_paused)])
+        }, [quick_center_content(up_time, volume, brightness, mic_percent, network_status, bluetooth_status, dnd_status, power_mode),mini_player(musicartlink, music_title, music_position, music_position_percentage, music_loop, music_shuffle, music_lenght, playing_paused)])
         ])
 ] ),
   ),
