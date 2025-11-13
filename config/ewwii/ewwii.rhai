@@ -56,7 +56,7 @@ fn mini_player(musicartlink, music_title, music_position,music_position_percenta
 }
 
 fn quick_center_content(up_time, volume, brightness, mic_percent, network_status, bluetooth_status, dnd_status, power_mode) {
-    let pfp_path = cmd::run_and_read(`[ -f "$HOME/.face" ] && printf "%s" "$(realpath "$HOME/.face")" || printf "%s" "$HOME/.config/binarydots/ewwii/placeholder.png"`);
+    let pfp_path = cmd::run_and_read(`[ -f "$HOME/.face" ] && printf "%s" "$(realpath "$HOME/.face")" || printf "%s" "$HOME/.config/niri/placeholder.png"`);
     let username = cmd::run_and_read("whoami");
     let user_host = cmd::run_and_read(`echo "$(id -un)@$(uname -n)"`);
     return box(#{
