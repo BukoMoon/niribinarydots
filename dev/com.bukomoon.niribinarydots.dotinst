@@ -4,11 +4,11 @@
 	"description": "",
 	"version":"0.1",
 	"author": "BukoMoon",
-	"homepage": "https://github.com/BukoMoon/niribinarydots",
+	"homepage": "",
 	"dependencies": "",
-	"source": "Projects/dotfiles",
+	"source": "Projects",
 	"subfolder": "dotfiles",
-	"setupscript":"setup.sh",
+	"setupscript":"",
 	"restore":[],
 	"settings":[]
 }
