@@ -6,7 +6,7 @@
 	"author": "BukoMoon",
 	"homepage": "https://github.com/BukoMoon/niribinarydots",
 	"dependencies": "",
-	"source": "Projects",
+	"source": "Projects/dotfiles",
 	"subfolder": "dotfiles",
 	"setupscript":"setup.sh",
 	"restore":[],
