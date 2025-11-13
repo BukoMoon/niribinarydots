@@ -8,7 +8,7 @@ usage() {
       --drun     : Launches the application launcher (drun).\n
       --run      : Launches the command runner (run). \n
       --menu     : Displays a custom menu with multiple options. \n
-      --window   : Displays a open windows.\n 
+      --window   : Displays a open windows.\n
       --sys_menu : Displays system menu. \n
       --screenshot_menu : Displays system menu. \n"
     exit 1
@@ -271,7 +271,7 @@ maintain_menu() {
         "󱘡  Clear Clipboard")
             rm -rf ~/.cache/cliphist >/dev/null 2>&1 & disown
             maintain_menu
-            ;; 
+            ;;
         *)
             echo "No option selected"
             ;;
@@ -291,7 +291,7 @@ manual_func() {
             system_menu
             ;;
         "  Keybinds")
-            rofi -dmenu -theme-str 'window {width: 52%;}' -dmenu -theme-str 'listview {lines: 14;}' -i -p ' ' < ~/.config/hypr/scripts/help.txt
+            rofi -dmenu -theme-str 'window {width: 52%;}' -dmenu -theme-str 'listview {lines: 14;}' -i -p ' ' < ~/.config/niri/scripts/help.txt
             ;;
         *)
             echo "No option selected"
@@ -315,10 +315,10 @@ screenshot_func() {
             foot -e yazi ~/Pictures/Screenshots/
             ;;
         "  Fullscreen")
-            hyprshot -m output -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
+            niri msg action screenshot-screen
             ;;
         "  Selection")
-            hyprshot -m region -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
+            niri msg action screeshot-window
             ;;
         *)
             echo "No option selected"
@@ -338,7 +338,7 @@ connections_func() {
         "󰌍")
             system_menu
             ;;
-        "󰤨  WiFi") 
+        "󰤨  WiFi")
             bash ~/.config/niri/scripts/rofiwifi.sh
             ;;
         " Bluetooth")
@@ -372,7 +372,7 @@ system_menu() {
             rofi -modi Clipboard:~/.config/niri/scripts/clipboard.sh -show Clipboard -theme-str 'element { children: [element-text]; }'
             ;;
         "󰄀  Screenshot")
-            screenshot_func 
+            screenshot_func
             ;;
         "  Notifications")
             bash ~/.config/mako/scripts/rofi.sh
@@ -405,14 +405,14 @@ theme_menu() {
     THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
     # Prompt user to choose an option
     chosen=$(echo -e "󰌍\n$THEMES" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "" -theme-str 'listview {lines: 10;}')
-    
-    if [[ -z "$chosen" ]]; then 
+
+    if [[ -z "$chosen" ]]; then
         exit 1
     elif [[ "$chosen" = "󰌍" ]];then
         system_menu
     fi
 
-   $HOME/.config/scripts/change-theme -c $chosen 
+   $HOME/.config/scripts/change-theme -c $chosen
 
 }
 
