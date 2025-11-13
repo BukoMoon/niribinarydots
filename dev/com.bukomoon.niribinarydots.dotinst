@@ -1,0 +1,14 @@
+{
+	"name": "Niri Binarydots DEV",
+	"id": "com.bukomoon.niribinarydots.dev",
+	"description": "",
+	"version":"0.1",
+	"author": "BukoMoon",
+	"homepage": "",
+	"dependencies": "",
+	"source": "Projects",
+	"subfolder": "dotfiles",
+	"setupscript":"setup.sh",
+	"restore":[],
+	"settings":[]
+}
