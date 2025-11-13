@@ -1,5 +1,76 @@
 #!/bin/bash
 
+yay_installed="false"
+paru_installed="false"
+aur_helper=""
+
+# Package list
+packages=(
+    "breeze"
+    "nwg-look"
+    "qt6ct"
+    "papirus-icon-theme"
+    "bibata-cursor-theme"
+    "catppuccin-gtk-theme-mocha"
+    "ttf-jetbrains-mono-nerd"
+    "ttf-jetbrains-mono ttf-fira-code"
+    "ttf-firacode-nerd"
+    "otf-fira-code-symbol"
+    "ttf-material-design-iconic-font"
+    "ttf-cascadia-mono-nerd"
+    "noto-fonts-cjk"
+    "mate-polkit"
+    "wlogout"
+    "jq"
+    "yazi"
+    "wiremix"
+    "fzf"
+    "hyprlock"
+    "power-profiles-daemon"
+    "udiskie"
+    "network-manager-applet"
+    "brightnessctl"
+    "cliphist"
+    "stow"
+    "git"
+    "fish"
+    "unzip"
+    "fastfetch"
+    "pamixer"
+    "mako"
+    "foot"
+    "awww-git"
+    "mpv"
+    "mpd"
+    "mpdris2-rs"
+    "rmpc"
+    "gtk4-layer-shell"
+    "base-devel"
+    "xdg-desktop-portal-gtk"
+    "xdg-desktop-portal-gnome"
+    "gnome-keyring"
+    "python-flask"
+    "python-requests"
+    "pcmanfm-qt"
+    "waybar"
+    "ewwii-bin"
+    "rofi"
+    "rofimoji"
+    "btop"
+    "starship"
+)
+
+_isInstalled() {
+    package="$1"
+    check="$(sudo pacman -Qs --color always "${package}" | grep "local" | grep "${package} ")"
+    if [ -n "${check}" ]; then
+        echo 0
+        return #true
+    fi
+    echo 1
+    return #false
+}
+
 _installYay() {
     if [[ ! $(_isInstalled "base-devel") == 0 ]]; then
         sudo pacman --noconfirm -S "base-devel"
@@ -66,16 +137,27 @@ _checkAURHelper() {
     fi
 }
 
-packages=(
-    breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
-    ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd noto-fonts-cjk
-    mate-polkit wlogout jq
-    yazi wiremix fzf hyprlock
-    power-profiles-daemon udiskie network-manager-applet brightnessctl
-    cliphist stow git fish unzip fastfetch pamixer mako foot awww-git
-    mpv mpd mpdris2-rs rmpc gtk4-layer-shell
-    base-devel xdg-desktop-portal-gtk xdg-desktop-portal-gnome gnome-keyring
-    python-flask python-requests
-    pcmanfm-qt waybar ewwii-bin
-    rofi rofimoji btop starship
-)
+_installPackages() {
+    for pkg; do
+        if [[ $(_isInstalled "${pkg}") == 0 ]]; then
+            echo ":: ${pkg} is already installed."
+            continue
+        fi
+        $aur_helper --noconfirm -S "${pkg}"
+    done
+}
+
+# --------------------------------------------------------------
+# Install Gum
+# --------------------------------------------------------------
+
+if [[ $(_checkCommandExists "gum") == 0 ]]; then
+    echo ":: gum is already installed"
+else
+    echo ":: The installer requires gum. gum will be installed now"
+    sudo pacman --noconfirm -S gum
+fi
+
+_checkAURHelper
+
+_installPackages "{$packages[0]}"
