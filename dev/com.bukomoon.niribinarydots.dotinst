@@ -1,14 +1,14 @@
 {
-	"name": "Niri Binarydots DEV",
-	"id": "com.bukomoon.niribinarydots.dev",
+	"name": "Niri Binarydots",
+	"id": "com.bukomoon.niribinarydots",
 	"description": "",
 	"version":"0.1",
 	"author": "BukoMoon",
-	"homepage": "",
-	"dependencies": "",
-	"source": "Projects",
+	"homepage": "https://github.com/BukoMoon/niribinarydots/",
+	"dependencies": "https://github.com/BukoMoon/niribinarydots/blob/main/PACKAGES",
+	"source": "https://github.com/BukoMoon/niribinarydots.git",
 	"subfolder": "dotfiles",
-	"setupscript":"",
+	"setupscript":"setup/setup.sh",
 	"restore":[],
 	"settings":[]
 }
